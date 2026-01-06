@@ -2,6 +2,18 @@
 
 基于 LangGraph 的增强型本地 AI Agent 系统，支持复杂工具调用、知识库检索、网络搜索等功能。
 
+---
+
+## ⚡ 快速导航
+
+- **遇到导入错误？** → [README_FIX.md](README_FIX.md) ⚡
+- **5分钟快速开始** → [QUICKSTART.md](QUICKSTART.md) 🚀
+- **详细安装指南** → [INSTALL.md](INSTALL.md) 📦
+- **问题排查** → [TROUBLESHOOTING.md](TROUBLESHOOTING.md) 🔧
+- **所有文档索引** → [DOCS_INDEX.md](DOCS_INDEX.md) 📖
+
+---
+
 ## ✨ 核心特性
 
 - 🧠 **强大的推理能力**: 基于 LangGraph 的 ReAct Agent 架构
