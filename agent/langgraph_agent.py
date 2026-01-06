@@ -2,11 +2,14 @@
 LangGraph Agent核心
 实现基于LangGraph的增强型ReAct Agent
 """
-from typing import List, Optional, Dict, Any, Callable
-from langchain_core.messages import SystemMessage, HumanMessage, BaseMessage
+from typing import List, Optional, Dict, Any, Callable, TYPE_CHECKING
+from langchain_core.messages import SystemMessage, HumanMessage, BaseMessage, AIMessage
 from langchain_core.runnables import RunnableLambda
 from langgraph.prebuilt import create_react_agent
-from langgraph.graph.graph import CompiledGraph
+
+# 类型检查时导入，避免运行时错误
+if TYPE_CHECKING:
+    from langgraph.graph import CompiledGraph
 
 from config import agent_config
 from utils import model_loader, format_input_for_qwen, parse_qwen_response
@@ -96,7 +99,7 @@ class EnhancedLangGraphAgent:
 - 保持友好和专业的语气
 """
 
-    def _build_agent_graph(self) -> CompiledGraph:
+    def _build_agent_graph(self):
         """
         构建Agent执行图
 
