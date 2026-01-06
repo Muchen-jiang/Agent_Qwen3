@@ -15,6 +15,7 @@ from config import agent_config
 from utils import model_loader, format_input_for_qwen, parse_qwen_response
 from memory import ConversationMemory, AgentState
 from tools import DEFAULT_TOOLS
+from .prompt_engineer import ToolPromptBuilder
 
 import logging
 
@@ -69,35 +70,16 @@ class EnhancedLangGraphAgent:
 
         logger.info(f"✅ Agent初始化完成，加载了 {len(self.tools)} 个工具")
 
+        # 如果是verbose模式，打印系统提示词
+        if self.verbose:
+            logger.debug(f"\n{'='*60}\n系统提示词:\n{'='*60}\n{self.system_prompt}\n{'='*60}\n")
+
     def _default_system_prompt(self) -> str:
-        """默认系统提示词"""
-        return """你是一个强大的AI助手，拥有多种工具能力。
-
-【核心能力】
-1. **网络搜索**: 可以搜索互联网获取最新信息
-2. **知识检索**: 可以从本地知识库中检索相关信息
-3. **数学计算**: 可以执行各种数学运算
-4. **天气查询**: 可以查询城市天气信息
-5. **时间获取**: 可以获取当前时间信息
-
-【工作流程】
-1. 仔细分析用户问题
-2. 思考是否需要使用工具
-3. 如果需要，选择合适的工具并调用
-4. 基于工具返回的结果，给出准确的回答
-
-【工具调用规则】
-- 当需要使用工具时，生成 <tool_call> XML标签
-- 格式: <tool_call>{"name": "工具名", "arguments": {"参数名": "参数值"}}</tool_call>
-- 可以一次调用多个工具
-- 工具返回的结果会以 "Observation: ..." 的形式出现
-
-【回答要求】
-- 基于事实，准确回答
-- 引用工具结果时，说明信息来源
-- 如果不确定，诚实说明
-- 保持友好和专业的语气
-"""
+        """
+        默认系统提示词 - 使用增强的提示词工程
+        包含详细的工具描述和few-shot示例
+        """
+        return ToolPromptBuilder.build_enhanced_system_prompt(self.tools)
 
     def _build_agent_graph(self):
         """

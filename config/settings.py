@@ -21,10 +21,13 @@ class ModelConfig:
     DEVICE_MAP: str = "auto"
     TORCH_DTYPE: str = "float16"
     MAX_NEW_TOKENS: int = 2048
-    TEMPERATURE: float = 0.1
+    # 降低温度以提高工具调用的稳定性
+    TEMPERATURE: float = 0.01  # 从 0.1 降低到 0.01，使输出更确定
     DO_SAMPLE: bool = True
     TOP_P: float = 0.9
     TOP_K: int = 50
+    # 添加重复惩罚以避免重复输出
+    REPETITION_PENALTY: float = 1.1
 
 # ==========================================
 # RAG配置

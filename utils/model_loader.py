@@ -74,6 +74,7 @@ class ModelLoader:
                 do_sample=model_config.DO_SAMPLE,
                 top_p=model_config.TOP_P,
                 top_k=model_config.TOP_K,
+                repetition_penalty=getattr(model_config, 'REPETITION_PENALTY', 1.1),
             )
 
             # 4. 包装为LangChain模型
